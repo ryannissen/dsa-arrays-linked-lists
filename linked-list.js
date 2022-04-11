@@ -147,13 +147,47 @@ class LinkedList {
   /** removeAt(idx): return & remove item at idx, */
 
   removeAt(idx) {
+    let returnValue = null;
+    if (this.length === 0) {
+      returnValue = "empty";
+    }
 
+    if (this.length === 1) {
+      returnValue = this.head;
+      this.head = null;
+      this.tail = null;
+    } else if (idx === 0) {
+      returnValue = this.head;
+      this.head = this.head.next;
+    }
+
+    let current = this.head;
+    let i = 0;
+    while (i < idx) {
+      if (i === idx - 1) {
+        returnValue = current.next.val;
+        current.next = current.next.next;
+      }
+      i += 1;
+      current = current.next;
+    }
+    this.length -= 1;
+    return returnValue;
   }
 
   /** average(): return an average of all values in the list */
 
   average() {
-    
+    let sum = 0;
+    let current = this.head;
+
+    if (this.length === 0) return 0;
+
+    while (current !== null) {
+      sum += current.val;
+      current = current.next;
+    }
+    return sum / this.length;
   }
 }
 
